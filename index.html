@@ -1,81 +1,80 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Quét Mã QR</title>
-  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@latest/dist/tailwind.min.css" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <script src="./node_modules/html5-qrcode/html5-qrcode.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js" 
-  integrity="sha512-k/KAe4Yff9EUdYI5/IAHlwUswqeipP+Cp5qnrsUjTPCgl51La2/JhyyjNciztD7mWNKLSXci48m7cctATKfLlQ==" 
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <style>
-    main {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      flex-direction: column;
-    }
-
-    #reader {
-      width: 600px;
-      margin-bottom: 20px;
-    }
-
-    #result {
-      text-align: center;
-      font-size: 1.5rem;
-    }
-
-    #result h2 {
-      color: #4CAF50;
-      margin-bottom: 10px;
-    }
-
-    #result a {
-      color: #2196F3;
-      text-decoration: none;
-    }
-
-    #result a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <title>QR Code Generator and Scanner</title>
+  <link rel="shortcut icon" href="https://i.pinimg.com/564x/d8/11/10/d81110f74b45542aa26eddc290592ed8.jpg"
+    type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="generator.css">
+  <link rel="stylesheet" href="scanner.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body class="bg-gray-700">
-  <main>
-    <div id="reader"></div>
-    <div id="result"></div>
-  </main>
+<body>
+  <div class="container">
+    <!-- Navigation -->
+    <nav>
+      <button class="nav-gene active">Tạo QR Code</button>
+      <button class="nav-scan">Quét QR Code</button>
+    </nav>
+    <br>
 
-  <script>
-    const scanner = new Html5QrcodeScanner('reader', { 
-        qrbox: {
-            width: 250,
-            height: 250,
-        }, 
-        fps: 20, 
-    });
+    <!-- QR Code Generator -->
+    <div class="generator">
+      <h1>Trình tạo mã QR</h1>
+      <p>Nhập ký tự hoặc đường dẫn để tạo mã QR</p>
+      <div class="generator-form">
+        <input type="text" placeholder="Nhập ký tự, đường dẫn">
+        <button>Tạo QR Code</button>
+      </div>
+      <div class="generator-img">
+        <img>
+      </div>
+      <div class="generator-btn">
+        <button class="btn-link">Tải xuống 
+          <i class="fa-solid fa-download"></i>
+        </button>
+      </div>
+    </div>
 
-    scanner.render(success, error);
+    <!-- QR Code Scanner -->
+    <div class="scanner" style="display: none;">
+      <h1>Quét QR Code
+        <i class="fa-solid fa-camera"></i>
+        <i class="fa-solid fa-circle-stop"></i>
+      </h1>
+      <form class="scanner-form">
+        <input type="file" accept="image/*" hidden>
+        <img>
+        <video autoplay></video>
+        <div class="content">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <p>Tải ảnh lên</p>
+        </div>
+      </form>
 
-    function success(result) {
-        document.getElementById('result').innerHTML = `
-        <h2>Mã QR của bạn!</h2>
-        <p><a href="${result}" target="_blank">${result}</a></p>
-        `;
-        scanner.clear();
-        document.getElementById('reader').remove();
-    }
+      <div class="scanner-details">
+        <textarea disabled></textarea>
+        <div class="btn">
+          <button class="close">Thoát</button>
+          <button class="copy">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    function error(err) {
-        console.error(err);
-    }
-  </script>
+  <!-- Javascript -->
+  <script src="main.js"></script>
+  <script src="generator.js"></script>
+  <script src="scanner.js"></script>
+  <script src="instascan.min.js"></script>
+  <script src="https://unpkg.com/instascan@latest/dist/instascan.min.js"></script>
+
 </body>
 
 </html>
